@@ -3,15 +3,27 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://use.fontawesome.com/4d46b4fd5c.js"></script>
     <title>Jukebox</title>
   </head>
   <body>
-    <h1>JukeBox Example</h1>
-    <a href="#" id="play">Play</a>
+    <h1>Jukebox</h1>
+    <a href="#" id="back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+    <a href="#" id="play"><i class="fa fa-play-circle" aria-hidden="true"></i></a>
+    <a href="#" id="pause"><i class="fa fa-pause-circle" aria-hidden="true"></i> </a>
+    <a href="#" id="next"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+
+    <form action="index.html" method="post">
+      <input id=("songsource") type="mp3" name="" value="" placeholder="yoursong.mp3">
+      <input id=("songtitle") type="text" name="" value="" placeholder="song title">
+    </form>
+
+
+    <audio id="bombay" src="audiofiles/Bombay.mp3" type="audio/mp3">
+    </audio>
 
 
     <script type="text/javascript" src="main.js">
-
     </script>
   </body>
 </html>
