@@ -11,7 +11,7 @@ var index = [0]
 var songs = [new Audio("audiofiles/track1.mp3"), new Audio("audiofiles/track2.mp3"), new Audio("audiofiles/track3.mp3"), new Audio("audiofiles/track4.mp3")]
 
 
-function Jukebox() {
+function Jukebox(songs) {
   this.songs = songs
 
 }
@@ -31,20 +31,25 @@ Jukebox.prototype.stop = function () {
   this.songs[index].currentTime = 0
 }
 
-Jukebox.prototype.nextsong = function () {
+Jukebox.prototype.forward = function () {
   this.songs[index].pause()
-  this.songs[index++]
+  this.songs[index].currentTime = 0
+  index ++
+  this.songs[index]
+  if (index === this.songs.length) {
+      index = [0]
+  }
   this.songs[index].play()
-
-
-
 }
 
 Jukebox.prototype.back = function () {
   this.songs[index].pause()
-  this.songs[index--]
+  this.songs[index].currentTime = 0
+  index --
+  if (index < 0) {
+      index = 0
+  }
   this.songs[index].play()
-
 }
 
 Jukebox.prototype.loadSong = function () {
@@ -53,11 +58,7 @@ Jukebox.prototype.loadSong = function () {
 
 
 
-// creates a new Jukebox object
-// this variable has global scope after this point
-
-var jukebox = new Jukebox()
-
+var jukebox = new Jukebox(songs)
 
 
 playButton.addEventListener("click", function(event){
@@ -77,7 +78,7 @@ stopButton.addEventListener("click", function(event) {
 
 nextButton.addEventListener("click", function(event){
   event.preventDefault()
-  jukebox.nextsong()
+  jukebox.forward()
 })
 
 backButton.addEventListener("click", function(event){
