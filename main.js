@@ -7,13 +7,25 @@ var backButton = document.querySelector("#back")
 var newSongButton = document.querySelector("#newsong")
 
 var index = [0]
+var titleSpot = document.querySelector("#titlespot")
 
-var songs = [new Audio("audiofiles/track1.mp3"), new Audio("audiofiles/track2.mp3"), new Audio("audiofiles/track3.mp3"), new Audio("audiofiles/track4.mp3")]
+var songs = [
+  new Audio("audiofiles/track1.mp3"),
+  new Audio("audiofiles/track2.mp3"),
+  new Audio("audiofiles/track3.mp3"),
+  new Audio("audiofiles/track4.mp3")
+]
+
+var titlesAndArtist = [
+  "Title: Bombay Artist: El Guincho",
+  "Title: Novias Artist: El Guincho",
+  "Title: Soca Del Eclipse Artist: El Guincho",
+  "Title: Lycra Mistral Artist: El Guincho"
+]
 
 
 function Jukebox(songs) {
   this.songs = songs
-
 }
 
 
@@ -52,10 +64,6 @@ Jukebox.prototype.back = function () {
   this.songs[index].play()
 }
 
-Jukebox.prototype.loadSong = function () {
-
-}
-
 
 
 var jukebox = new Jukebox(songs)
@@ -63,6 +71,7 @@ var jukebox = new Jukebox(songs)
 
 playButton.addEventListener("click", function(event){
   event.preventDefault()
+  titleSpot.innerHTML = titlesAndArtist[index]
   jukebox.play()
 })
 
@@ -79,17 +88,23 @@ stopButton.addEventListener("click", function(event) {
 nextButton.addEventListener("click", function(event){
   event.preventDefault()
   jukebox.forward()
+  titleSpot.innerHTML = titlesAndArtist[index]
 })
 
 backButton.addEventListener("click", function(event){
   event.preventDefault()
   jukebox.back()
+  titleSpot.innerHTML = titlesAndArtist[index]
+
 })
 
 newSongButton.addEventListener("click", function(event) {
   event.preventDefault()
-  var songField = document.querySelector("#songfield").value
-  var newSong = new Audio(songField)
-  var audioElement = document.createElement("audio")
+  var songField = document.querySelector("#songfield")
+  var newSong = new Audio(songField.value)
+  var titleField = document.querySelector("#titlefield")
+  var newTitle = titleField.value
+  songs.push(newSong)
+  titlesAndArtist.push(newTitle)
 
 })
