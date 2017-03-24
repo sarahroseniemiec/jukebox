@@ -1,54 +1,49 @@
-// targets the play button from the page and
-//  stores a reference to it in the playButton variable
-// this play button has global scope
+
 var playButton = document.querySelector("#play")
 var pauseButton = document.querySelector("#pause")
+var stopButton = document.querySelector("#stop")
 var nextButton = document.querySelector("#next")
 var backButton = document.querySelector("#back")
+var newSongButton = document.querySelector("#newsong")
 
-function Song(audioSource) {
-  this.audioSource = audioSource
-}
+var index = [0]
 
-var bombay = new Song("audiofiles/Bombay.mp3")
-console.log(bombay)
-var lycraMistral = new Song("audiofiles/LycraMistral.mp3")
-var novias = new Song("audiofiles/Novias")
-var socaDelEclipse = new Song ("audiofiles/SocaDelEclipse.mp3")
+var songs = [new Audio("audiofiles/track1.mp3"), new Audio("audiofiles/track2.mp3"), new Audio("audiofiles/track3.mp3"), new Audio("audiofiles/track4.mp3")]
 
-// defines the Jukebox object
+
 function Jukebox() {
-  this.audio = new Audio(bombay.audioSource)
-  this.song = []
-  // the code for what happens when you create a Jukebox object
-  //  goes here
-}
+  this.songs = songs
 
-
-// defines the Jukebox prototype method
-
-Jukebox.prototype.addingSongs =
-function(song) {
-  this.song.push(song)
 }
 
 
 Jukebox.prototype.play = function() {
-  this.audio.play()
-  // the code for playing a song would go here
+  this.songs[index].play()
 
 }
 
-// the rest of your prototype methods would go here
 Jukebox.prototype.pause = function () {
-  this.audio.pause()
+  this.songs[index].pause()
+}
+
+Jukebox.prototype.stop = function () {
+  this.songs[index].pause()
+  this.songs[index].currentTime = 0
 }
 
 Jukebox.prototype.nextsong = function () {
+  this.songs[index].pause()
+  this.songs[index++]
+  this.songs[index].play()
+
+
 
 }
 
 Jukebox.prototype.back = function () {
+  this.songs[index].pause()
+  this.songs[index--]
+  this.songs[index].play()
 
 }
 
@@ -57,46 +52,43 @@ Jukebox.prototype.loadSong = function () {
 }
 
 
+
 // creates a new Jukebox object
 // this variable has global scope after this point
 
-// var jukebox = new Jukebox()
 var jukebox = new Jukebox()
-jukebox.addingSongs(bombay)
-jukebox.addingSongs(lycraMistral)
-jukebox.addingSongs(novias)
-jukebox.addingSongs(socaDelEclipse)
 
-console.log(jukebox);
 
-// adds an event listener for when you click the play button
+
 playButton.addEventListener("click", function(event){
-  // prevents link from going to the next page
   event.preventDefault()
-
-  // the rest of the code
-  //  for what happens when you click the play button goes here
-
-  // uses the jukebox object to play the music file
   jukebox.play()
 })
 
-// the rest of your event listeners would go here
-
 pauseButton.addEventListener("click", function(event){
   event.preventDefault()
-
   jukebox.pause()
+})
+
+stopButton.addEventListener("click", function(event) {
+  event.preventDefault()
+  jukebox.stop()
 })
 
 nextButton.addEventListener("click", function(event){
   event.preventDefault()
-
   jukebox.nextsong()
 })
 
 backButton.addEventListener("click", function(event){
   event.preventDefault()
-
   jukebox.back()
+})
+
+newSongButton.addEventListener("click", function(event) {
+  event.preventDefault()
+  var songField = document.querySelector("#songfield").value
+  var newSong = new Audio(songField)
+  var audioElement = document.createElement("audio")
+
 })
